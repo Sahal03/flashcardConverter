@@ -1,0 +1,6 @@
+{
+  "name": "flashcardconverter",
+  "main": "main.py",
+  "compatibility_flags": ["python_workers"],
+  "compatibility_date": "2025-10-18"
+}

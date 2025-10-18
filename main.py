@@ -1,10 +1,10 @@
 from fastapi import FastAPI, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import Response
 from pydantic import BaseModel
+from workers.asgi import asgi
 
 import anki
-import os
 
 class Flashcard(BaseModel):
     f: str
@@ -20,18 +20,17 @@ app.add_middleware(
     allow_headers=["Content-Type"], 
 )
 
-def cleanup(file: str):
-    if os.path.exists(file):
-        os.remove(file)
-
 @app.post("/")
-async def createAnkiDeck(cards : list[Flashcard], background : BackgroundTasks):
-    output_file = anki.createAnkiDeck(cards)
+async def createAnkiDeck(cards: list[Flashcard], background: BackgroundTasks):
+    deck_bytes = anki.createAnkiDeck(cards)
     
-    background.add_task(cleanup, output_file)
-    
-    return FileResponse(
-        output_file,
+    return Response(
+        content=deck_bytes,
         media_type='application/octet-stream',
-        filename='flashcards.apkg'
+        headers={
+            'Content-Disposition': 'attachment; filename="flashcards.apkg"'
+        }
     )
+
+async def on_fetch(request, env):
+    return await asgi(app, request, env)
