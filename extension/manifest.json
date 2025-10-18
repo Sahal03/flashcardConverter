@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "NotebookLM Flashcards Export",
+  "version": "1.0.0",
+  "description": "Export NotebookLM Flashcards to CSV or Anki Package",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://notebooklm.google.com/*",
+    "https://*.usercontent.goog/*"
+  ]
+}
