@@ -7,6 +7,7 @@ A Chrome extension that exports flashcards from Google's NotebookLM directly to 
 Flashcard Converter is a browser extension that seamlessly integrates with Google NotebookLM, allowing you to export your AI-generated flashcards with a single click. Convert your study materials to CSV format for easy viewing and editing, or export directly to Anki packages (.apkg) for spaced repetition learning.
 
 The extension connects to a cloud-hosted backend on Google Cloud Run, so there's no local server setup required—just install the extension and start exporting!
+<img width="301" height="171" alt="image" src="https://github.com/user-attachments/assets/c983042d-77fd-4251-a1e3-11e30a8a6e1a" />
 
 ## Features
 
