@@ -2,7 +2,6 @@ from fastapi import FastAPI, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from pydantic import BaseModel
-from workers.asgi import asgi
 
 import anki
 
@@ -20,7 +19,11 @@ app.add_middleware(
     allow_headers=["Content-Type"], 
 )
 
-@app.post("/")
+@app.get("/")
+async def health_check():
+    return {"status": "healthy"}
+
+@app.post("/convert")
 async def createAnkiDeck(cards: list[Flashcard], background: BackgroundTasks):
     deck_bytes = anki.createAnkiDeck(cards)
     
@@ -31,6 +34,3 @@ async def createAnkiDeck(cards: list[Flashcard], background: BackgroundTasks):
             'Content-Disposition': 'attachment; filename="flashcards.apkg"'
         }
     )
-
-async def on_fetch(request, env):
-    return await asgi(app, request, env)

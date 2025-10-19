@@ -1,4 +1,4 @@
-document.getElementById('exportCsv').addEventListener('click', async () => {  
+document.getElementById('exportAnki').addEventListener('click', async () => {  
   const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
   
   try {
@@ -17,6 +17,33 @@ document.getElementById('exportCsv').addEventListener('click', async () => {
     
     if (flashcards) {
       downloadAnki(flashcards);
+    } else {
+      alert("No flashcards found!");
+    }
+  } catch (error) {
+    console.error("error:", error);
+    alert("Error: " + error.message);
+  }
+});
+
+document.getElementById('exportCsv').addEventListener('click', async () => {  
+  const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
+  
+  try {
+    const results = await chrome.scripting.executeScript({
+      target: {tabId: tab.id, allFrames: true},
+      func: extractFlashcardsFromPage
+    });
+        
+    let flashcards = null;
+    for (let result of results) {
+      if (result.result && result.result.length > 0) {
+        flashcards = result.result;
+        break;
+      }
+    }
+    
+    if (flashcards) {
       downloadCSV(flashcards);
     } else {
       alert("No flashcards found!");
@@ -59,7 +86,7 @@ function downloadCSV(flashcards) {
 }
 
 function downloadAnki(flashcards){
-  fetch("http://127.0.0.1:8000", {
+  fetch("https://flashcard-converter1-774031092485.us-central1.run.app/convert", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

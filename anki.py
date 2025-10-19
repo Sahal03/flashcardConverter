@@ -1,5 +1,6 @@
 import genanki
 import random
+import io
 
 ANKI_MODEL = genanki.Model(
     random.randrange(1 << 30, 1 << 31),
@@ -17,7 +18,7 @@ ANKI_MODEL = genanki.Model(
     ]
 )
 
-def createAnkiDeck(flashcards: list, deck_name: str = 'NotebookLM Flashcards') -> str:
+def createAnkiDeck(flashcards: list, deck_name: str = 'NotebookLM Flashcards') -> bytes:
     deck_id = random.randrange(1 << 30, 1 << 31)
     deck = genanki.Deck(deck_id, deck_name)
     
@@ -28,7 +29,8 @@ def createAnkiDeck(flashcards: list, deck_name: str = 'NotebookLM Flashcards') -
         )
         deck.add_note(note)
     
-    output_file = f'deck_{deck_id}.apkg'
-    genanki.Package(deck).write_to_file(output_file)
+    buffer = io.BytesIO()
+    genanki.Package(deck).write_to_file(buffer)
+    buffer.seek(0)
     
-    return output_file
+    return buffer.read()
