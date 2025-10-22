@@ -25,7 +25,7 @@ The extension connects to a cloud-hosted backend on Google Cloud Run, so there's
 
 ### Chrome Web Store
 
-[Chrome Web Store](https://chromewebstore.google.com/detail/gfpdgeimnjeibphkimmeeigedjffdnnp?utm_source=item-share-cb)
+https://chromewebstore.google.com/detail/gfpdgeimnjeibphkimmeeigedjffdnnp?utm_source=item-share-cb
 
 ### Manual Installation (For Developers)
 
