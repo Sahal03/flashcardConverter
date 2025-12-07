@@ -44,7 +44,35 @@ document.getElementById('exportCsv').addEventListener('click', async () => {
     }
     
     if (flashcards) {
-      downloadCSV(flashcards);
+      downloadCSV(flashcards, 'Front,Back\n');
+    } else {
+      alert("No flashcards found!");
+    }
+  } catch (error) {
+    console.error("error:", error);
+    alert("Error: " + error.message);
+  }
+});
+
+document.getElementById('exportCsvHeaderless').addEventListener('click', async () => {  
+  const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
+  
+  try {
+    const results = await chrome.scripting.executeScript({
+      target: {tabId: tab.id, allFrames: true},
+      func: extractFlashcardsFromPage
+    });
+        
+    let flashcards = null;
+    for (let result of results) {
+      if (result.result && result.result.length > 0) {
+        flashcards = result.result;
+        break;
+      }
+    }
+    
+    if (flashcards) {
+      downloadCSV(flashcards, '');
     } else {
       alert("No flashcards found!");
     }
@@ -68,8 +96,8 @@ function extractFlashcardsFromPage() {
   return data.flashcards;
 }
 
-function downloadCSV(flashcards) {
-  let csv = 'Front,Back\n';
+function downloadCSV(flashcards, header) {
+  let csv = header;
   flashcards.forEach(card => {
     const front = '"' + card.f.replace(/"/g, '""') + '"';
     const back = '"' + card.b.replace(/"/g, '""') + '"';
