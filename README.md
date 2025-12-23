@@ -12,7 +12,8 @@ Flashcard Converter is a browser extension that seamlessly integrates with Googl
 
 The extension connects to a cloud-hosted backend on Google Cloud Run, so there's no local server setup required—just install the extension and start exporting!
 
-<img width="301" height="171" alt="image" src="https://github.com/user-attachments/assets/c983042d-77fd-4251-a1e3-11e30a8a6e1a" />
+<img width="297" height="221" alt="image" src="https://github.com/user-attachments/assets/c8480ba7-95e4-4aee-b267-df4d5abae6bf" />
+
 
 ## Features
 
