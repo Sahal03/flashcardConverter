@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from pydantic import BaseModel
 
-import app.anki as anki
+import server.anki as anki
 
 class Flashcard(BaseModel):
     f: str
