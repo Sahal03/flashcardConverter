@@ -1,18 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NotebookLM Flashcards Exporter</title>
+  <title>Flashcards Converter</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <h1>NotebookLM Exporter</h1>
+  <h1>Flashcards Converter</h1>
   <div class="button-container">
-    <button class="export-csv" id="exportCsv">Export CSV</button>
-    <button class="export-csv" id="exportCsvHeaderless">Export CSV Headerless</button>
-    <button class="export-anki" id="exportAnki">Export Anki Deck</button>
+    <button class="export-csv" id="exportCsv">Download CSV</button>
+  </div>
+
+  <!-- CSV to Anki drop zone — always visible -->
+  <div id="dropZone" class="drop-zone">
+    <label for="csvFileInput" class="drop-zone-inner">
+      <svg class="drop-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 16L12 8M12 16L9 13M12 16L15 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+        <path d="M3 15C3 18.314 5.686 21 9 21H15C18.314 21 21 18.314 21 15" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" />
+        <path d="M3 9C3 5.686 5.686 3 9 3H15C18.314 3 21 5.686 21 9" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-dasharray="4 2" />
+      </svg>
+      <p class="drop-title">CSV to Anki (.apkg) Converter</p>
+      <p class="drop-subtitle">Drop file here or <span class="browse-link">click to browse</span></p>
+      <input type="file" id="csvFileInput" accept=".csv" hidden>
+    </label>
+    <div id="dropStatus" class="drop-status"></div>
   </div>
   <script src="popup.js"></script>
 </body>
+
 </html>
